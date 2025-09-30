@@ -1,6 +1,7 @@
 # EXP-03-Implement-Breadth-First-Search-Traversal-of-a-Graph
 Breadth First Search Traversal of a Graph
-
+NAME : MADHULEHA K
+REG NO : 212224060140
 
 AIM: 
 Theory: 
@@ -87,31 +88,48 @@ D E
 D G 
 G F 
 ''' 
-def bfs(graph,start,visited,path): 
-queue = deque() 
-path.append(start) 
-queue.append(start) 
-visited[start] = True 
-while len(queue) != 0: 
-tmpnode = queue.popleft() 
-for neighbour in graph[tmpnode]: 
-if visited[neighbour] == False: 
-path.append(neighbour) 
-queue.append(neighbour) 
-visited[neighbour] = True 
-return path 
-graph = defaultdict(list) 
-v,e = map(int,input().split()) 
-for i in range(e): 
-u,v = map(str,input().split()) 
-graph[u].append(v) 
-graph[v].append(u) 
-start = '0' 
-#start=’A’ 
-path = [] 
-visited = defaultdict(bool) 
-traversedpath = bfs(graph,start,visited,path) 
-print(traversedpath) 
+from collections import deque, defaultdict
+
+# BFS function
+def bfs(graph, start, visited, path):
+    queue = deque()
+    path.append(start)
+    queue.append(start)
+    visited[start] = True
+
+    while queue:
+        current = queue.popleft()
+        for neighbour in graph[current]:
+            if not visited[neighbour]:
+                path.append(neighbour)
+                queue.append(neighbour)
+                visited[neighbour] = True
+    return path
+
+# ------------------ Main Program ------------------
+# Input number of vertices and edges
+v, e = map(int, input("Enter number of vertices and edges: ").split())
+
+# Graph represented as adjacency list
+graph = defaultdict(list)
+
+print("Enter the edges (u v):")
+for _ in range(e):
+    u, v = input().split()
+    graph[u].append(v)
+    graph[v].append(u)   # Undirected graph
+
+start = input("Enter the starting node: ")
+
+# Visited dictionary and path
+visited = defaultdict(bool)
+path = []
+
+# BFS Traversal
+traversed_path = bfs(graph, start, visited, path)
+
+print("BFS Traversal:", traversed_path)
+
 Sample Input : 
 5 6 
 0 1 
